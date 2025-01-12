@@ -2,7 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const { graphqlHTTP } = require('express-graphql');
+
 const authRoutes = require('./routes/authRoutes');
+const planRoutes = require('./routes/planRoutes');
+
 const sequelize = require('./config/database');
 const schema = require('./graphql/schema');
 
@@ -20,6 +23,8 @@ app.use('/graphql', graphqlHTTP({
   schema,
   graphiql: true,
 }));
+
+app.use('/api', planRoutes);
 
 sequelize.sync()
   .then(() => console.log('Database synced'))

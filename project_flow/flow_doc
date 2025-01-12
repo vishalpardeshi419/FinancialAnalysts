@@ -1,5 +1,7 @@
 Summary of Flow: 💡
 
+#Iteration 1
+
 User Registration: User provides credentials (username, password, role) → Server hashes password → New user is created → Success response with user info.
 
 User Login: User provides username and password → Server checks credentials → JWT token is generated → Success response with the token.
@@ -10,3 +12,13 @@ Authorization: For protected routes, the user must send the JWT token in the Aut
 
 Database Sync: Upon server startup, Sequelize synchronizes the database schema.
 This setup ensures secure user authentication and role-based authorization, allowing different access levels for different user roles like "Admin" and "Finance".
+
+#Iteration 2
+
+Manage Subscription Plans: Create, update, delete, and fetch subscription plans from MySQL.
+
+Store Subscription Metrics: Use Clickhouse to track subscription metrics such as plan changes, upgrades, and downgrades.
+
+Subscription Changes: Handle upgrades, downgrades, and trial periods for users.
+
+Validations: Ensure that subscription changes are valid (e.g., no upgrades during trial periods).
