@@ -1,0 +1,12 @@
+Summary of Flow: 💡
+
+User Registration: User provides credentials (username, password, role) → Server hashes password → New user is created → Success response with user info.
+
+User Login: User provides username and password → Server checks credentials → JWT token is generated → Success response with the token.
+
+GraphQL Access: Users can log in/register via GraphQL queries/mutations, receiving a JWT token.
+
+Authorization: For protected routes, the user must send the JWT token in the Authorization header. Middleware checks the token's validity and the user's role for access control.
+
+Database Sync: Upon server startup, Sequelize synchronizes the database schema.
+This setup ensures secure user authentication and role-based authorization, allowing different access levels for different user roles like "Admin" and "Finance".
