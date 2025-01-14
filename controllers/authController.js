@@ -3,13 +3,13 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 const register = async (req, res) => {
-    const {username, password, role } = req.body;
+    const {username, email, password, role ,current_plan, trial_end_date} = req.body;
     const hasedPassword = await bcrypt.hash(password, 10);
-    if (!username || !hasedPassword || !role) {
+    if (!username || !hasedPassword || !role || !email) {
         return res.status(400).json({ error: "All fields are required" });
     }
     try {
-        const user = await User.create({username, password: hasedPassword, role });
+        const user = await User.create({username, email, password: hasedPassword, role, current_plan, trial_end_date});
         res.status(201).json({message: 'User Created', user});
     } catch (error) {
         res.status(201).json({error: error});

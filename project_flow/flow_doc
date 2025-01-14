@@ -22,3 +22,6 @@ Store Subscription Metrics: Use Clickhouse to track subscription metrics such as
 Subscription Changes: Handle upgrades, downgrades, and trial periods for users.
 
 Validations: Ensure that subscription changes are valid (e.g., no upgrades during trial periods).
+
+    # Updated Registration fields 
+    # Write Migration for Registration
