@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:4000/api', // Backend API URL
+  baseURL: 'http://localhost:5500/api', // Backend API URL
   headers: {
     Authorization: `Bearer ${localStorage.getItem('token')}` // Include JWT token in request headers
   }

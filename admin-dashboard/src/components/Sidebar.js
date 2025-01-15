@@ -21,11 +21,11 @@ const Sidebar = () => {
           <ListItemText primary="Dashboard" />
         </ListItem>
         <ListItem button component={Link} to="/create-plan">
-          <ListItemText primary="Create Plan" />
+          <ListItemText primary="Manage Plan" />
         </ListItem>
-        <ListItem button component={Link} to="/manage-plans">
+        {/* <ListItem button component={Link} to="/manage-plans">
           <ListItemText primary="Manage Plans" />
-        </ListItem>
+        </ListItem> */}
       </List>
     </Drawer>
   );

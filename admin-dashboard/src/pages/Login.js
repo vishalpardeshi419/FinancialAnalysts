@@ -10,7 +10,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:5500/api/login', { email, password });
+      const response = await axios.post('http://localhost:5500/api/auth/login', { email, password });
       localStorage.setItem('token', response.data.token); // Save JWT token
       navigate('/dashboard'); // Redirect to the dashboard
     } catch (error) {

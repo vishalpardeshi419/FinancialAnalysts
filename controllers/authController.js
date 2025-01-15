@@ -17,10 +17,10 @@ const register = async (req, res) => {
 }
 
 const login = async (req, res) => {
-    const {username, password} = req.body;
-    console.log("username", username);
+    const {email, password} = req.body;
+
     try {
-        const user = await User.findOne({ where: { username } });
+        const user = await User.findOne({ where: { email } });
         if(!user) return res.status(400).json({ error: 'Invalid credentials' });
 
         const isMatch = await bcrypt.compare(password, user.password);
