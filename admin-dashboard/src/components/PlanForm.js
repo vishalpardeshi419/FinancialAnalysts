@@ -112,7 +112,7 @@ const ManagePlans = () => {
       console.error('Error deleting plan:', error);
     }
   };
- console.log("plans",allPlans);
+  
   return (
     <Box p={3}>
       <Typography variant="h4" gutterBottom>

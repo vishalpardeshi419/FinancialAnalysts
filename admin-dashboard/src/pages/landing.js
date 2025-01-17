@@ -1,8 +1,35 @@
 // LandingPage.jsx
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { jwtDecode } from 'jwt-decode';
 
 const LandingPage = () => {
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  const handleLogin = (provider) => {
+    window.location.href = `http://localhost:5500/auth/${provider}`;
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
+
+    if (token) {
+      localStorage.setItem("token", token);
+      const userData = jwtDecode(token);
+      setUser(userData);
+      navigate("/dashboard");
+    }
+  }, []);
   return (
     <Container>
       <Header>
@@ -11,7 +38,20 @@ const LandingPage = () => {
           <NavLink href="#features">Features</NavLink>
           <NavLink href="#pricing">Pricing</NavLink>
           <NavLink href="#contact">Contact</NavLink>
-          <Button href="/signin">Sign In</Button>
+          <h1>OAuth Login</h1>
+          {user ? (
+            <div>
+              <p>Welcome, {user.name}</p>
+              <button onClick={handleLogout}>Logout</button>
+            </div>
+          ) : (
+            <div>
+              <button onClick={() => handleLogin("google")}>Login with Google</button>
+              {/* <button onClick={() => handleLogin("microsoft")}>
+                Login with Microsoft
+              </button> */}
+            </div>
+          )}
         </Nav>
       </Header>
       <HeroSection>

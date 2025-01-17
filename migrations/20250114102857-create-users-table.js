@@ -10,6 +10,15 @@ module.exports = {
         primaryKey: true,
         allowNull: false, 
       },
+      oauth_user_id: {
+        type: Sequelize.STRING,
+        unique: true,      // Ensure unique OAuth IDs
+        allowNull: true, 
+      },
+      oauth_provider : {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       username : {
         type: Sequelize.STRING,
         allowNull: false,
@@ -21,7 +30,7 @@ module.exports = {
       },
       current_plan: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       trial_end_date: {
         type: Sequelize.DATE,
@@ -34,16 +43,16 @@ module.exports = {
       },
       password: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       createdAt: {
         type: Sequelize.DATE,
-        allowNull: false,
+        allowNull: true,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
         type: Sequelize.DATE,
-        allowNull: false,
+        allowNull: true,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
     })
