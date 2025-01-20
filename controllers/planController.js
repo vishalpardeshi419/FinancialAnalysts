@@ -13,6 +13,11 @@ const createPlan = async (req, res) => {
     const { name, price, features } = req.body;
     try {
       const plan = await Plan.create({ name, price, features });
+      if (global.io) {
+        global.io.emit('planCreated', plan.dataValues); // Emit event using global.io
+      } else {
+        console.error('io is undefined!');
+      }
       res.status(201).json({ message: 'Plan created successfully', plan });
     } catch (err) {
       res.status(500).json({ error: err.message });
@@ -32,6 +37,12 @@ const updatePlan = async (req, res) => {
     plan.features = features || plan.features;
     await plan.save();
 
+    if (global.io) {
+      global.io.emit('planUpdated', updatedPlan); // Emit event when a plan is updated
+    }else {
+        console.error('io is undefined!');
+    }
+
     res.status(200).json({ message: 'Plan updated successfully', plan });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -46,6 +57,11 @@ const deletePlan = async (req, res) => {
       if (!plan) return res.status(404).json({ error: 'Plan not found' });
   
       await plan.destroy();
+      if (global.io) {
+        global.io.emit('planDeleted', deletedPlan); // Emit event when a plan is deleted
+      }else{
+        console.error('io is undefined!');
+      }
       res.status(200).json({ message: 'Plan deleted successfully' });
     } catch (err) {
       res.status(500).json({ error: err.message });

@@ -1,4 +1,4 @@
-const { GraphQLObjectType, GraphQLSchema, GraphQLString } = require('graphql');
+ const { GraphQLObjectType, GraphQLSchema, GraphQLString, GraphQLList, GraphQLID } = require('graphql');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user'); // Import your User model
 const bcrypt = require('bcryptjs'); // For hashing passwords (if needed)
@@ -8,6 +8,17 @@ const AuthType = new GraphQLObjectType({
   fields: {
     token: { type: GraphQLString }
   }
+});
+
+// Define the UserType
+const UserType = new GraphQLObjectType({
+  name: 'User',
+  fields: () => ({
+    id: { type: GraphQLID },
+    username: { type: GraphQLString },
+    email: { type: GraphQLString },
+    oauth_user_id:  { type:GraphQLID }
+  }),
 });
 
 const RootQuery = new GraphQLObjectType({
@@ -87,8 +98,22 @@ const Mutation = new GraphQLObjectType({
   }
 });
 
+// Define the Root Query type with the 'users' field
+const RootQueryType = new GraphQLObjectType({
+  name: 'RootQueryType',
+  fields: {
+    users: {
+      type: new GraphQLList(UserType),
+      resolve(parent, args) {
+        return User.findAll();  // Replace with actual data fetching logic
+      },
+    },
+  },
+});
+
+
 module.exports = new GraphQLSchema({
-  query: RootQuery,
+  query: RootQueryType,
   mutation: Mutation
 });
 

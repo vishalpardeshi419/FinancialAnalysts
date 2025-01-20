@@ -21,7 +21,7 @@ import { fetchPlans, createPlan, updatePlan, deletePlan } from '../services/api'
 import { Delete, Edit } from '@mui/icons-material';
 
 const ManagePlans = () => {
-  const [allPlans, setAllPlans] = useState([]);
+  const [plans, setPlans] = useState([]);
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     id: null,
@@ -41,7 +41,7 @@ const ManagePlans = () => {
     try {
       const response = await fetchPlans();
       if (Array.isArray(response.data.plans)) {
-        setAllPlans(response.data.plans); 
+        setPlans(response.data.plans); 
       } else {
         console.error('Plans data is not an array:', response.data.plans);
       }
@@ -133,7 +133,7 @@ const ManagePlans = () => {
             </TableRow>
           </TableHead>
           <TableBody>            
-            {allPlans && allPlans.length > 0 ? ( allPlans.map(plan => (
+            {plans && plans.length > 0 ? ( plans.map(plan => (
               <TableRow key={plan.id}>
                 <TableCell>{plan.name}</TableCell>
                 <TableCell>${plan.price}</TableCell>
